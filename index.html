@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAMAYUSA | De Tuchín para el Mundo</title>
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { cacao: '#6B4226', arena: '#D4B483', negro: '#1F1F1F', marfil: '#F4EEE3', salvia: '#A9B99C', dorado: '#B08D57' },
+                    fontFamily: { serif: ['"Cormorant Garamond"', 'serif'], sans: ['Montserrat', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <!-- Íconos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-marfil text-negro font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Topbar -->
+    <div class="bg-negro text-marfil text-[10px] py-2 text-center tracking-[0.2em] font-light">
+        ENVÍOS NACIONALES E INTERNACIONALES — COLOMBIA · ESTADOS UNIDOS · EUROPA
+    </div>
+    
+    <!-- Header Fijo -->
+    <header class="sticky top-0 z-50 bg-marfil/95 backdrop-blur-md border-b border-arena/30 h-24 flex items-center">
+        <div class="max-w-7xl mx-auto w-full px-6 flex justify-between items-center">
+            <nav class="hidden md:flex space-x-8 text-[11px] tracking-[0.2em] font-medium text-negro">
+                <a href="#/" class="hover:text-cacao transition">INICIO</a>
+                <a href="#/catalogo" class="hover:text-cacao transition">COLECCIONES</a>
+                <a href="#/historia" class="hover:text-cacao transition">NUESTRA HISTORIA</a>
+            </nav>
+            
+            <a href="#/" class="flex-shrink-0 text-center cursor-pointer group block">
+                <div class="w-8 h-8 rounded-full border border-dorado flex items-center justify-center mx-auto mb-1 group-hover:bg-cacao transition">
+                    <span class="font-serif text-cacao text-lg leading-none group-hover:text-marfil transition">N</span>
+                </div>
+                <h1 class="font-serif text-3xl text-cacao tracking-wide leading-none">NAMAYUSA</h1>
+                <span class="text-[9px] tracking-[0.3em] text-negro mt-1 uppercase block">De Tuchín para el Mundo</span>
+            </a>
+
+            <div class="flex items-center space-x-6">
+                <button class="relative hover:text-cacao transition">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-negro"></i>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-cacao text-marfil text-[9px] w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- AQUÍ SE RENDERIZAN LAS PÁGINAS -->
+    <main id="app-root" class="flex-grow"></main>
+
+    <!-- Footer Global -->
+    <footer class="bg-negro text-marfil pt-20 pb-10 px-6 border-t-4 border-cacao mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 text-sm font-light">
+            <div class="col-span-1 md:col-span-2">
+                <h2 class="font-serif text-3xl text-arena mb-2">NAMAYUSA</h2>
+                <p class="text-[10px] tracking-[0.2em] text-arena/80 uppercase mb-6">De Tuchín para el Mundo</p>
+                <p class="mb-6 opacity-80 leading-relaxed max-w-sm">Artesanía colombiana inspirada en nuestras raíces, creada para acompañarte con belleza, historia y significado.</p>
+            </div>
+            <div>
+                <h4 class="text-xs tracking-[0.2em] uppercase text-arena mb-6 font-medium">Tienda</h4>
+                <ul class="space-y-4 opacity-80">
+                    <li><a href="#/catalogo" class="hover:text-marfil transition">Ver Catálogo Completo</a></li>
+                    <li><a href="#/historia" class="hover:text-marfil transition">Artesanía Zenú</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs tracking-[0.2em] uppercase text-arena mb-6 font-medium">Ayuda</h4>
+                <ul class="space-y-4 opacity-80">
+                    <li><a href="#" class="hover:text-marfil transition">Contacto por WhatsApp</a></li>
+                    <li><a href="#" class="hover:text-marfil transition">Envíos y Devoluciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-marfil/20 pt-8 text-center text-[10px] tracking-widest text-marfil/60 uppercase">
+            <p>ARTESANÍA · DISEÑO · TRADICIÓN · COLOMBIA &copy; 2026 NAMAYUSA.</p>
+        </div>
+    </footer>
+
+    <!-- Script de la Arquitectura SPA -->
+    <script src="app.js"></script>
+</body>
+</html>
