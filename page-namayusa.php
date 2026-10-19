@@ -1,0 +1,326 @@
+<?php
+/**
+ * Template Name: NAMAYUSA Tienda Oficial SPA
+ * Description: Plataforma oficial de NAMAYUSA - De Tuchín para el Mundo (Catálogo 2026, Colección Origen y B2B).
+ */
+$is_wp = function_exists('get_stylesheet_directory_uri');
+$script_url = $is_wp ? esc_url(get_stylesheet_directory_uri() . '/namayusa-assets/app.js') : 'app.js';
+?>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAMAYUSA | De Tuchín para el Mundo — Catálogo Oficial 2026</title>
+    <meta name="description" content="Artesanía colombiana contemporánea: Sombreros Vueltiaos Colección Origen, Bolsos en Caña Flecha, Palma de Iraca de Usiacurí y Joyería en Piedras Naturales.">
+    
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cacao: '#6B4226',
+                        cacaoDark: '#2C180D',
+                        arena: '#D4B483',
+                        negro: '#1F1F1F',
+                        marfil: '#F4EEE3',
+                        marfilLight: '#FAF7F2',
+                        salvia: '#A9B99C',
+                        dorado: '#B08D57'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Íconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-fade-up {
+            animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-float {
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+        .arch-frame {
+            border-radius: 9999px 9999px 12px 12px;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F4EEE3; }
+        ::-webkit-scrollbar-thumb { background: #B08D57; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6B4226; }
+    </style>
+</head>
+<body class="bg-marfil text-negro font-sans antialiased flex flex-col min-h-screen selection:bg-cacao selection:text-marfil overflow-x-hidden">
+
+    <!-- Topbar Minimalista y Despejado -->
+    <div class="bg-cacaoDark text-marfil/90 text-[10px] py-2 px-6 border-b border-dorado/25">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <p class="tracking-[0.22em] font-light truncate">
+                ARTESANÍA COLOMBIANA CONTEMPORÁNEA · <span class="text-arena hidden sm:inline">ENVÍOS NACIONALES E INTERNACIONALES</span>
+            </p>
+            <div class="flex items-center gap-2 text-[9px] tracking-widest flex-shrink-0">
+                <span class="text-arena/70 hidden md:inline">MONEDA:</span>
+                <div class="inline-flex rounded border border-arena/30 overflow-hidden">
+                    <button onclick="setCurrency('COP')" id="curr-COP" class="px-2 py-0.5 bg-cacao text-marfil font-medium transition">COP</button>
+                    <button onclick="setCurrency('USD')" id="curr-USD" class="px-2 py-0.5 hover:bg-marfil/10 transition">USD</button>
+                    <button onclick="setCurrency('EUR')" id="curr-EUR" class="px-2 py-0.5 hover:bg-marfil/10 transition">EUR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header Principal Limpio y Equilibrado -->
+    <header class="sticky top-0 z-40 bg-marfil/95 backdrop-blur-md border-b border-arena/35 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl mx-auto w-full px-6 grid grid-cols-3 items-center">
+            
+            <!-- Columna Izquierda: Menú Móvil / Navegación Principal -->
+            <div class="flex items-center">
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-negro hover:text-cacao transition p-2 -ml-2" aria-label="Menú">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                <nav class="hidden lg:flex items-center space-x-7 text-[10px] tracking-[0.2em] font-medium text-negro/90 uppercase">
+                    <a href="#/" class="hover:text-cacao transition">Inicio</a>
+                    <a href="#/origen" class="text-cacao font-semibold hover:text-negro transition">Origen</a>
+                    <a href="#/catalogo" class="hover:text-cacao transition">Catálogo</a>
+                    <a href="#/joyeria" class="hover:text-cacao transition">Piedras & Charms</a>
+                </nav>
+            </div>
+            
+            <!-- Columna Central: Logo NAMAYUSA con Monograma Artesanal -->
+            <div class="flex justify-center">
+                <a href="#/" class="text-center cursor-pointer group inline-flex flex-col items-center">
+                    <div class="flex items-center gap-2.5">
+                        <!-- Sello Monograma N con Trama Zenú -->
+                        <div class="w-8 h-8 rounded-full bg-cacaoDark border border-dorado flex items-center justify-center shadow-sm group-hover:bg-cacao transition duration-300">
+                            <span class="font-serif text-arena text-lg font-semibold leading-none">N</span>
+                        </div>
+                        <h1 class="font-serif text-2xl sm:text-3xl text-cacao tracking-[0.14em] leading-none">NAMAYUSA</h1>
+                    </div>
+                    <span class="text-[8px] tracking-[0.32em] text-negro/70 mt-1 uppercase block">De Tuchín para el Mundo</span>
+                </a>
+            </div>
+
+            <!-- Columna Derecha: Acciones Limpias -->
+            <div class="flex items-center justify-end space-x-5">
+                <nav class="hidden xl:flex items-center space-x-6 text-[10px] tracking-[0.2em] font-medium text-negro/90 uppercase">
+                    <a href="#/experiencia" class="hover:text-cacao transition">B2B & Packaging</a>
+                    <a href="#/historia" class="hover:text-cacao transition">Esencia</a>
+                </nav>
+
+                <button onclick="openAdvisorModal()" class="text-negro hover:text-cacao transition p-1.5 flex items-center gap-1.5 text-[10px] tracking-[0.16em] uppercase" title="Calculadora de Talla y Asesor">
+                    <i data-lucide="ruler" class="w-4 h-4 text-cacao"></i>
+                    <span class="hidden md:inline font-medium">Tallas</span>
+                </button>
+
+                <button onclick="toggleCartDrawer(true)" class="relative hover:text-cacao transition p-1.5" aria-label="Bolsa de compras">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-negro"></i>
+                    <span id="cart-count" class="absolute -top-0.5 -right-0.5 bg-cacao text-marfil text-[9px] font-semibold w-4 h-4 rounded-full flex items-center justify-center transition-all duration-300 shadow">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleMobileMenu()" class="absolute inset-0 bg-negro/60 backdrop-blur-xs"></div>
+        <div class="relative w-72 max-w-[85vw] bg-marfil h-full p-6 flex flex-col justify-between shadow-2xl border-r border-arena/40">
+            <div>
+                <div class="flex justify-between items-center pb-5 border-b border-arena/30">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-7 h-7 rounded-full bg-cacaoDark border border-dorado flex items-center justify-center">
+                            <span class="font-serif text-arena text-base">N</span>
+                        </div>
+                        <div>
+                            <span class="font-serif text-xl text-cacao block leading-none">NAMAYUSA</span>
+                            <span class="text-[7px] tracking-[0.25em] uppercase text-negro/60">Catálogo 2026</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="p-1 text-negro hover:text-cacao">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <nav class="mt-6 flex flex-col space-y-4 text-xs tracking-[0.18em] uppercase font-medium">
+                    <a href="#/" onclick="toggleMobileMenu()" class="hover:text-cacao transition py-1">Inicio</a>
+                    <a href="#/origen" onclick="toggleMobileMenu()" class="text-cacao font-semibold hover:text-negro transition py-1">Colección Origen (SKUs)</a>
+                    <a href="#/catalogo" onclick="toggleMobileMenu()" class="hover:text-cacao transition py-1">Portafolio Completo 2026</a>
+                    <a href="#/joyeria" onclick="toggleMobileMenu()" class="hover:text-cacao transition py-1">Piedras Naturales & Charms</a>
+                    <a href="#/experiencia" onclick="toggleMobileMenu()" class="hover:text-cacao transition py-1">Packaging & Canal B2B</a>
+                    <a href="#/historia" onclick="toggleMobileMenu()" class="hover:text-cacao transition py-1">Nuestra Esencia</a>
+                </nav>
+                <button onclick="toggleMobileMenu(); openAdvisorModal();" class="mt-8 w-full flex items-center justify-center gap-2 bg-cacao text-marfil py-3 text-[10px] tracking-widest uppercase rounded shadow">
+                    <i data-lucide="ruler" class="w-4 h-4"></i> Calculadora de Talla
+                </button>
+            </div>
+            <div class="pt-6 border-t border-arena/30 text-[10px] tracking-widest text-negro/70 uppercase space-y-1">
+                <p class="text-cacao font-semibold">Raíces que viajan, historias que perduran.</p>
+                <p>Tuchín · Usiacurí · Cartagena</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DINÁMICO SPA -->
+    <main id="app-root" class="flex-grow min-h-[75vh]"></main>
+
+    <!-- Cajón Lateral del Carrito -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleCartDrawer(false)" class="absolute inset-0 bg-negro/60 backdrop-blur-xs transition-opacity"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-marfil shadow-2xl flex flex-col justify-between border-l border-arena/40">
+                <div class="p-6 bg-cacaoDark text-marfil flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full border border-dorado flex items-center justify-center bg-negro/40">
+                            <span class="font-serif text-arena text-lg">N</span>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl tracking-wide leading-none">Tu Selección NAMAYUSA</h3>
+                            <span class="text-[9px] tracking-[0.2em] text-arena/80 uppercase">Incluye Dust Bag & Certificado</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleCartDrawer(false)" class="text-marfil/70 hover:text-marfil p-1 transition">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <div id="cart-items-container" class="p-6 flex-grow overflow-y-auto space-y-4"></div>
+
+                <div class="p-6 bg-marfilLight border-t border-arena/40">
+                    <div class="flex justify-between items-center mb-2 text-[11px] text-negro/70">
+                        <span>Presentación</span>
+                        <span class="uppercase tracking-wider text-cacao font-medium">Empaque Premium Incluido</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-5 pt-2 border-t border-arena/30">
+                        <span class="text-xs tracking-[0.2em] uppercase font-semibold">Total Estimado</span>
+                        <span id="cart-total-price" class="font-serif text-3xl text-cacao font-semibold">$0 COP</span>
+                    </div>
+                    <button onclick="checkoutWhatsApp()" class="w-full bg-cacaoDark text-marfil border border-dorado/50 py-4 text-xs tracking-[0.2em] uppercase font-medium hover:bg-cacao transition duration-300 flex items-center justify-center gap-2.5 shadow-lg">
+                        <svg class="w-4 h-4 fill-arena" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.529 5.856l-1.529 5.584 5.716-1.5c1.688.902 3.613 1.416 5.66 1.416 6.627 0 12-5.373 12-12s-5.373-12-11.376-11.356z"/></svg>
+                        Enviar Pedido con SKU por WhatsApp
+                    </button>
+                    <button onclick="clearCart()" class="w-full mt-2 py-1.5 text-[10px] tracking-widest uppercase text-negro/50 hover:text-cacao transition">
+                        Vaciar selección
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Asesor Digital de Estilo y Talla -->
+    <div id="advisor-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div onclick="closeAdvisorModal()" class="absolute inset-0 bg-negro/70 backdrop-blur-xs"></div>
+        <div class="relative bg-marfil border border-arena max-w-xl w-full rounded-xl shadow-2xl overflow-hidden animate-fade-up z-10">
+            <div class="bg-cacaoDark text-marfil p-6 flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] tracking-[0.25em] text-arena uppercase block">Atención Personalizada</span>
+                    <h3 class="font-serif text-2xl sm:text-3xl">Asesor Digital NAMAYUSA</h3>
+                </div>
+                <button onclick="closeAdvisorModal()" class="text-marfil/70 hover:text-marfil p-1">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="advisor-content" class="p-6 sm:p-8"></div>
+        </div>
+    </div>
+
+    <!-- Contenedor Toast -->
+    <div id="toast-container" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Botón Flotante WhatsApp con Colores de Marca (Cacao + Dorado) y Logo NAMAYUSA -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <a id="floating-wa-link" href="https://wa.me/57318263611?text=Hola%20NAMAYUSA,%20deseo%20atenci%C3%B3n%20personalizada%20sobre%20el%20Cat%C3%A1logo%202026." target="_blank" rel="noopener" class="bg-cacaoDark hover:bg-cacao text-marfil p-2 pr-4 rounded-full shadow-2xl border-2 border-dorado hover:scale-105 transition-all duration-300 flex items-center gap-3 group" title="Atención por WhatsApp NAMAYUSA">
+            <!-- Monograma N de NAMAYUSA con insignia WhatsApp -->
+            <div class="relative w-11 h-11 rounded-full bg-cacao border border-arena/60 flex items-center justify-center flex-shrink-0 shadow-inner">
+                <span class="font-serif text-xl text-marfil font-semibold leading-none">N</span>
+                <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-dorado text-cacaoDark flex items-center justify-center shadow">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.529 5.856l-1.529 5.584 5.716-1.5c1.688.902 3.613 1.416 5.66 1.416 6.627 0 12-5.373 12-12s-5.373-12-11.376-11.356z"/></svg>
+                </span>
+            </div>
+            <div class="text-left pr-1">
+                <span class="block text-[8px] tracking-[0.25em] uppercase text-arena">Atención Directa</span>
+                <span class="block font-serif text-base text-marfil leading-tight">WhatsApp NAMAYUSA</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Footer Oficial -->
+    <footer class="bg-negro text-marfil pt-20 pb-10 px-6 border-t-4 border-cacao mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16 text-sm font-light">
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-full bg-cacaoDark border border-dorado flex items-center justify-center">
+                        <span class="font-serif text-arena text-xl">N</span>
+                    </div>
+                    <h2 class="font-serif text-3xl text-arena tracking-wide">NAMAYUSA</h2>
+                </div>
+                <p class="text-[10px] tracking-[0.25em] text-arena/80 uppercase mb-4">De Tuchín para el Mundo · Raíces que viajan, historias que perduran</p>
+                <p class="mb-6 opacity-80 leading-relaxed text-xs max-w-md">
+                    Artesanía colombiana contemporánea. Conectamos la caña flecha de Tuchín, la palma de iraca de Usiacurí y las piedras naturales en piezas con origen, belleza y permanencia.
+                </p>
+                <div class="text-xs text-arena/90 space-y-1 font-normal">
+                    <p>WhatsApp & Contacto Comercial: 318 263 611</p>
+                    <p>Instagram & Facebook: <span class="text-marfil">@namayusa.co</span></p>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs tracking-[0.2em] uppercase text-arena mb-5 font-medium">Líneas de Colección</h4>
+                <ul class="space-y-3 opacity-80 text-xs tracking-wider">
+                    <li><a href="#/origen" class="hover:text-arena transition">Colección Origen (Sombreros)</a></li>
+                    <li><a href="#/catalogo?cat=sombreros" class="hover:text-arena transition">Sombreros Vueltiaos (21, 23 y Fedora)</a></li>
+                    <li><a href="#/catalogo?cat=bolsos" class="hover:text-arena transition">Bolsos en Caña Flecha</a></li>
+                    <li><a href="#/catalogo?cat=accesorios" class="hover:text-arena transition">Accesorios en Caña Flecha</a></li>
+                    <li><a href="#/catalogo?cat=iraca" class="hover:text-arena transition">Palma de Iraca de Usiacurí</a></li>
+                    <li><a href="#/joyeria" class="hover:text-arena transition">Joyería en Piedras & Charms</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs tracking-[0.2em] uppercase text-arena mb-5 font-medium">Experiencia & B2B</h4>
+                <ul class="space-y-3 opacity-80 text-xs tracking-wider">
+                    <li><a href="#/experiencia" class="hover:text-arena transition">Packaging & Etiquetas</a></li>
+                    <li><a href="#/origen#certificado" class="hover:text-arena transition">Certificado de Autenticidad</a></li>
+                    <li><a href="#/experiencia#b2b" class="hover:text-arena transition">Boutiques y Hoteles</a></li>
+                    <li><a href="#/experiencia#b2b" class="hover:text-arena transition">Regalos Empresariales</a></li>
+                    <li><a href="#/experiencia#b2b" class="hover:text-arena transition">Exportación Internacional</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs tracking-[0.2em] uppercase text-arena mb-5 font-medium">Asistencia</h4>
+                <ul class="space-y-3 opacity-80 text-xs tracking-wider">
+                    <li><button onclick="openAdvisorModal()" class="hover:text-arena transition text-left">Calculadora de Talla</button></li>
+                    <li><a href="#/joyeria" class="hover:text-arena transition">Significado de las Piedras</a></li>
+                    <li><a href="#/historia" class="hover:text-arena transition">Los 4 Materiales de Origen</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-marfil/15 pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] tracking-widest text-marfil/60 uppercase gap-4">
+            <p>ARTESANÍA · DISEÑO · TRADICIÓN · COLOMBIA &copy; 2026 NAMAYUSA.</p>
+            <p>TRADICIÓN QUE INSPIRA, DISEÑO QUE ENAMORA</p>
+        </div>
+    </footer>
+
+    <!-- Carga Única del Motor Principal NAMAYUSA -->
+    <script src="<?php echo $script_url; ?>"></script>
+</body>
+</html>
